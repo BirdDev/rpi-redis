@@ -1,5 +1,5 @@
 # Pull base image
-FROM resin/rpi-raspbian:wheezy
+FROM resin/rpi-raspbian:jessy
 MAINTAINER Govinda Fichtner <govinda@hypriot.com>
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
@@ -17,9 +17,9 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 	&& rm /usr/local/bin/gosu.asc \
 	&& chmod +x /usr/local/bin/gosu
 
-ENV REDIS_VERSION 3.0.4
+ENV REDIS_VERSION 4.0.11
 ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-3.0.0.tar.gz
-ENV REDIS_DOWNLOAD_SHA1 c75fd32900187a7c9f9d07c412ea3b3315691c65
+ENV REDIS_DOWNLOAD_SHA256 fc53e73ae7586bcdacb4b63875d1ff04f68c5474c1ddeda78f00e5ae2eed1bbb
 
 # for redis-sentinel see: http://redis.io/topics/sentinel
 RUN buildDeps='gcc libc6-dev make'; \
@@ -28,7 +28,7 @@ RUN buildDeps='gcc libc6-dev make'; \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& mkdir -p /usr/src/redis \
 	&& curl -sSL "$REDIS_DOWNLOAD_URL" -o redis.tar.gz \
-	&& echo "$REDIS_DOWNLOAD_SHA1 *redis.tar.gz" | sha1sum -c - \
+	&& echo "$REDIS_DOWNLOAD_SHA256 *redis.tar.gz" | sha256sum -c - \
 	&& tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
 	&& rm redis.tar.gz \
 	&& make -C /usr/src/redis \
