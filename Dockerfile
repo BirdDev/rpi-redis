@@ -1,5 +1,5 @@
 # Pull base image
-FROM resin/rpi-raspbian:jessy
+FROM resin/rpi-raspbian:jessie
 MAINTAINER Govinda Fichtner <govinda@hypriot.com>
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
@@ -18,7 +18,7 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 	&& chmod +x /usr/local/bin/gosu
 
 ENV REDIS_VERSION 4.0.11
-ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-3.0.0.tar.gz
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-4.0.11.tar.gz
 ENV REDIS_DOWNLOAD_SHA256 fc53e73ae7586bcdacb4b63875d1ff04f68c5474c1ddeda78f00e5ae2eed1bbb
 
 # for redis-sentinel see: http://redis.io/topics/sentinel
